@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "BetRisk"
+version = "0.0.1"
+authors = [
+  { name="Patrick Gavin LaChapelle", email="patlachapelle3@gmail.com" },
+]
+description = "Tools for managing risk when engaging in betting markets"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/physicslifter/BetRisk"
+Issues = "https://github.com/physicslifter/BetRisk/Issues"

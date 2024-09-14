@@ -72,6 +72,7 @@ class Event:
         option1_payout = self.option1.payout - self.option2.risk
         option2_payout = self.option2.payout - self.option1.risk
         self.EV = (1-self.option2.prob)*option1_payout + (1 - self.option1.prob)*option2_payout
+        print(option1_payout, option2_payout, self.EV)
 
 class RiskManager:
     def __init__(self):

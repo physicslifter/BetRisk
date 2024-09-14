@@ -1,0 +1,15 @@
+Metadata-Version: 2.1
+Name: BetRisk
+Version: 0.0.1
+Summary: Tools for managing risk when engaging in betting markets
+Author-email: Patrick Gavin LaChapelle <patlachapelle3@gmail.com>
+Project-URL: Homepage, https://github.com/physicslifter/BetRisk
+Project-URL: Issues, https://github.com/physicslifter/BetRisk/Issues
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+
+# CapitalAllocator
+Python code to manage capital allocation
