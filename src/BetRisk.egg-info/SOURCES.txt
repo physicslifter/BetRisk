@@ -1,8 +1,12 @@
 README.md
 pyproject.toml
 src/BetRisk/__init__.py
+src/BetRisk/in-game-kelly.py
 src/BetRisk/risk_management.py
 src/BetRisk.egg-info/PKG-INFO
 src/BetRisk.egg-info/SOURCES.txt
 src/BetRisk.egg-info/dependency_links.txt
 src/BetRisk.egg-info/top_level.txt
+tests/test_bet.py
+tests/test_conversions.py
+tests/test_option.py
