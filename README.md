@@ -6,14 +6,15 @@ Python code to manage capital allocation when participating in betting markets
 pip install BetRisk
 ```
 
-# Create a RiskManager
+# Tutorial
+## Create a RiskManager
 This class is to manage all events that you are betting on.  
 ```
 from BetRisk.risk_management import RiskManager, Event
 manager = RiskManager()
 ```
 
-# Add events to your risk manager
+## Add events to your risk manager
 ```
 #create two events that we can bet on
 Lions_v_Rams = Event(option1 = "Lions", #The first option
