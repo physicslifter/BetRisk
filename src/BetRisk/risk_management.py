@@ -49,9 +49,11 @@ class Strategy:
         pass
 
 class Odds:
-    def __init__(self, odds, type):
+    def __init__(self, odds, odds_type):
         self.odds = odds
         valid_types = ["american", "decimal"]
+        if odds_type not in valid_types:
+            raise Exception(f"{odds_type} is not a valid odds type. Please use one of {valid_types}")
 
 class Bet:
     def __init__(self, odds, risk, fee=None):
@@ -110,6 +112,9 @@ class Event:
                 option.place_bet(odds, risk)
 
     def update_odds(self, option1Odds, option2Odds):
+        """
+        Updates odds for the event
+        """
         for option, odds in zip([self.option1, self.option2], [option1Odds, option2Odds]):
             option.update_odds(odds)
 
@@ -175,16 +180,12 @@ class Event:
             print(new_risk, current_risk, new_EV, self.EV, result)
             result = True
         return result
-    
-class SillyEvent(Event):
-    def __init__(self, option1, option2, fee, option1Odds, option2Odds):
-        Event.__init__(self, option1, option2, fee, option1Odds, option2Odds)
-    
-    def determine_bet(self):
-        print("I'm silly!")
 
 class RiskManager:
-    def __init__(self):
+    def __init__(self, portfolio_size):
+        """
+        portfolio size is the size of the portfolio in arbitrary units
+        """
         self.events = []
 
     def calculate_risk():
