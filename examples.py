@@ -6,8 +6,9 @@ from pdb import set_trace as st
 import pandas as pd
 
 test_event = 0
-test_bet_placer = 1
-
+test_bet_placer = 0
+test_strategy = 1
+print(test_strategy)
 if test_event == True:
     e = Event("Rams", "Lions", 0, -240, 280)
     e.place_bet("Rams", -240, 24)
@@ -54,5 +55,18 @@ if test_bet_placer == True:
                 #print("NUM BETS",len(e.option1.bets))
         print(e.option1.payout - e.option2.risk, e.option2.payout - e.option1.risk)
 
-    st()
+if test_strategy == True:
+    from BetRisk.risk_management import *
+    from BetRisk.strategies import *
+    e = Event("Rams", "Lions", 0, 230, -300)
+    e.update_true_odds(200, -250)
+    placement_strat = EV()
+    allocation_strat = Kelly(100)
+    e.calc_ev() #Get EV of the options so we can print
+    print(f"{e.option1.true_prob}, {e.option2.true_prob}")
+    print(f"{e.option1.EV}, {e.option2.EV}")
+    print(f"{placement_strat.determine_bet(e.option1)}, {placement_strat.determine_bet(e.option2)}")
+    for option in [e.option1, e.option2]:
+        allocation_strat.determine_bet_size(option)
+    print(f"{e.option1.bet_size}, {e.option2.bet_size}")
         
