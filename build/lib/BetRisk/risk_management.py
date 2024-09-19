@@ -44,6 +44,10 @@ def get_vig_free_odds(odds1, odds2):
     true_probability = max(vfp1, vfp2)
     return true_probability
 
+class Strategy:
+    def __init__(self):
+        pass
+
 class Odds:
     def __init__(self, odds, type):
         self.odds = odds
@@ -171,6 +175,13 @@ class Event:
             print(new_risk, current_risk, new_EV, self.EV, result)
             result = True
         return result
+    
+class SillyEvent(Event):
+    def __init__(self, option1, option2, fee, option1Odds, option2Odds):
+        Event.__init__(self, option1, option2, fee, option1Odds, option2Odds)
+    
+    def determine_bet(self):
+        print("I'm silly!")
 
 class RiskManager:
     def __init__(self):
@@ -184,3 +195,6 @@ class RiskManager:
 
     def update_events():
         pass
+
+    def add_event(self, event:Event):
+        self.events.append(event)
