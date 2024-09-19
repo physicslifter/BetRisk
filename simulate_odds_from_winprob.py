@@ -6,7 +6,9 @@ import pandas as pd
 from BetRisk.risk_management import convert_probability_to_odds
 from pdb import set_trace as st
 import numpy as np
+from datetime import datetime
 
+start = datetime.now()
 data = pd.read_csv("Data/SEA_DET_CLEAN.csv")
 #data["homeprob"] = data.where(data.fav == "DET", data.prob/100, 1-data.prob/100)
 #data["awayprob"] = data.where(data.fav == "SEA", data.prob/100, 1-data.prob/100)
@@ -31,3 +33,4 @@ data["Home Odds"] = home_odds
 data["Away Odds"] = away_odds
 data.to_csv("SEA_DET_simulated_odds.csv")
 
+print(f"Time to complete: {datetime.now() - start}")
