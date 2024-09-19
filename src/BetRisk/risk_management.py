@@ -41,12 +41,8 @@ def convert_american_to_decimal(odds):
 def get_vig_free_odds(odds1, odds2):
     prob1, prob2, = convert_odds(odds1), convert_odds(odds2)
     vfp1, vfp2 = prob1/(prob1+prob2), prob2/(prob1 + prob2)
-    true_probability = max(vfp1, vfp2)
+    true_probability = (vfp1, vfp2)
     return true_probability
-
-class Strategy:
-    def __init__(self):
-        pass
 
 class Odds:
     def __init__(self, odds, odds_type):
@@ -82,13 +78,23 @@ class Option:
         self.odds = odds
         self.prob = convert_odds(odds)
 
+    def update_true_prob(self, prob):
+        self.true_prob = prob
+
+    def update_bet_size(self, bet_size):
+        self.bet_size = bet_size
+
     def update_profiles(self):
         "updates risk profiles"
         self.risk = sum([bet.risk for bet in self.bets])
         self.payout = sum([bet.payout for bet in self.bets])
 
     def calc_EV(self):
-        self.EV = self.prob*self.payout - (1-self.prob)*self.risk
+        """
+        relative EV is calculated with payout = payout/risk
+        """
+        payout = get_payout(self.odds, 1)
+        self.EV = self.true_prob*payout - (1-self.true_prob)
 
     def calc_odds(self, payout, risk):
         #calculates the odds required to get the payout
@@ -118,6 +124,16 @@ class Event:
         for option, odds in zip([self.option1, self.option2], [option1Odds, option2Odds]):
             option.update_odds(odds)
 
+    def update_true_odds(self, option1TrueOdds, option2TrueOdds):
+        """
+        Updates the "True" odds for the option, which can then 
+        be used to determine what (if any) bets to place
+        """
+        option1TrueProb, option2TrueProb = get_vig_free_odds(option1TrueOdds, option2TrueOdds)
+        for option, true_prob in zip([self.option1, self.option2], [option1TrueProb, option2TrueProb]):
+            option.update_true_prob(true_prob)
+        #get the true probability for each event as the vigfree odds
+        
     def calc_ev(self):
         self.EV = 0
         for option in [self.option1, self.option2]:
@@ -125,7 +141,7 @@ class Event:
             self.EV += option.EV
         option1_payout = self.option1.payout - self.option2.risk
         option2_payout = self.option2.payout - self.option1.risk
-        self.EV = (1-self.option2.prob)*option1_payout + (1 - self.option1.prob)*option2_payout
+        self.EV = (self.option1.true_prob)*option1_payout + (self.option2.true_prob)*option2_payout
         self.option1EV = (1-self.option2.prob)*option1_payout
         self.option2EV = (1 - self.option1.prob)*option2_payout
         #print(option1_payout, option2_payout, self.EV)
@@ -181,8 +197,14 @@ class Event:
             result = True
         return result
 
+from BetRisk.strategies import *
+
+class Updater:
+    def __init__(self):
+        pass
+
 class RiskManager:
-    def __init__(self, portfolio_size):
+    def __init__(self, portfolio_size, strategy):
         """
         portfolio size is the size of the portfolio in arbitrary units
         """
@@ -194,8 +216,9 @@ class RiskManager:
     def calculateEV():
         pass
 
-    def update_events():
+    def update_events(self):
         pass
+
 
     def add_event(self, event:Event):
         self.events.append(event)
