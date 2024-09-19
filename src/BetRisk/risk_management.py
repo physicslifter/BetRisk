@@ -219,6 +219,8 @@ class RiskManager:
     def update_events(self):
         pass
 
+    def evaluate_events(self):
+        pass
 
     def add_event(self, event:Event):
         self.events.append(event)
