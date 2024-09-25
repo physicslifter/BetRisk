@@ -61,6 +61,7 @@ class Bet:
     def calc_payout(self):
         self.prob = convert_odds(self.odds)
         self.payout = get_payout(self.odds, self.risk)*(1-self.fee)
+        self.b = self.payout/self.risk
 
 class Option:
     def __init__(self, name, fee=None):
@@ -77,6 +78,8 @@ class Option:
     def update_odds(self, odds):
         self.odds = odds
         self.prob = convert_odds(odds)
+        self.b = get_payout(odds, 1) - 1
+        print(odds, self.b)
 
     def update_true_prob(self, prob):
         self.true_prob = prob

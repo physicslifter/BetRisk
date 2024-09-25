@@ -43,3 +43,17 @@ Falcons_v_Eagles = Event("Falcons", "Eagles", 0.025, 175, -220)
 manager.add_event(Lions_v_Rams)
 manager.add_event(Falcons_v_Eagles)
 ```
+
+## Use Placement strategy to place bets
+```
+#update with 'true' odds for the event
+manager.events[0].update_true_odds(200, -250)
+manager.events[1].update_true_odds(230, -300)
+
+#define a placement strategy
+placement_strat = EV()
+
+#determine whether to place bets on either option
+placement_strat.determine_bet(manager.events[0].option1)
+placement_strat.determine_bet(manager.events[0].option2)
+```
