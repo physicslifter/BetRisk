@@ -7,7 +7,9 @@ import pandas as pd
 
 test_event = 0
 test_bet_placer = 0
-test_strategy = 1
+test_strategy = 0
+test_in_game_kelly = 1
+
 print(test_strategy)
 if test_event == True:
     e = Event("Rams", "Lions", 0, -240, 280)
@@ -70,3 +72,17 @@ if test_strategy == True:
         allocation_strat.determine_bet_size(option)
     print(f"{e.option1.bet_size}, {e.option2.bet_size}")
         
+if test_in_game_kelly == True:
+    from BetRisk.risk_management import Event
+    from BetRisk.in_game_kelly import InGameKelly
+    e = Event("SEA", "DET", 0, 230, -300)
+    e.place_bet("SEA", 350, 10)
+    e.update_true_odds(220, -220)
+    e.update_odds(120, -135)
+    st()
+    manager = InGameKelly(e, 1000)
+    manager.find_bets()
+    st()
+
+
+
